@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Диалог — театрально-образовательный проект</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Manrope:wght@400;500;600;700;800&display=swap");
+
+      :root {
+        --brand-orange: #c85d3b;
+        --font-heading: "Manrope", sans-serif;
+        --font-body: "DM Sans", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: #f5f2ec;
+        color: #171717;
+        font-family: var(--font-body);
+        overflow-x: hidden;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* Приведение всех заголовков и акцентов к Manrope */
+      h1,
+      h2,
+      h3,
+      h4,
+      .logo,
+      .btn,
+      .step-title,
+      .stitle,
+      .show-link,
+      .partner-info h3,
+      summary {
+        font-family: var(--font-heading);
+      }
+
+      /* Ограничение ширины контента */
+      .wrap {
+        width: min(1160px, calc(100% - 40px));
+        margin: auto;
+        position: relative;
+        z-index: 2;
+      }
+
+      #sketch-container {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        overflow: hidden;
+      }
+
+      header,
+      main,
+      footer {
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Nav */
+      nav {
+        height: 78px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .logo {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -1px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .logo-badge {
+        background: var(--brand-orange);
+        color: #fff;
+        padding: 3px 9px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .nav {
+        display: flex;
+        gap: 28px;
+        color: #666;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .nav a {
+        transition: color 0.2s;
+      }
+      .nav a:hover {
+        color: #171717;
+      }
+
+      /* Buttons */
+      .btn {
+        border: 0;
+        border-radius: 999px;
+        padding: 14px 24px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.15s, opacity 0.15s, box-shadow 0.15s;
+        font-size: 14px;
+        display: inline-block;
+        text-align: center;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        opacity: 0.92;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+      .dark {
+        background: #191919;
+        color: #fff;
+      }
+      .red {
+        background: var(--brand-orange);
+        color: #fff;
+      }
+      .ghost {
+        background: transparent;
+        border: 1px solid #ccc6bc;
+        color: #171717;
+      }
+
+      /* Sections */
+      section {
+        padding: 110px 0;
+      }
+      .darkbg {
+        background: #1b1b1b;
+        color: #fff;
+      }
+
+      /* Hero Section & PNG Logo Wrapper */
+      .hero-section {
+        min-height: calc(100vh - 78px);
+        display: flex;
+        align-items: center;
+        padding: 40px 0;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 1.15fr; /* Колонке логотипа даем чуть больше ширины */
+        gap: 48px;
+        align-items: center;
+      }
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.13em;
+        font-size: 12px;
+        color: #8d8d8d;
+        margin-bottom: 16px;
+        font-weight: 600;
+      }
+      h1 {
+        font-size: clamp(52px, 7.5vw, 90px);
+        line-height: 0.88;
+        letter-spacing: -1px;
+        margin: 0;
+        font-weight: 800;
+      }
+      .hero h2 {
+        font-size: clamp(24px, 3.2vw, 40px);
+        line-height: 1.08;
+        letter-spacing: -1.5px;
+        margin: 20px 0 16px;
+        color: #2c2a29;
+        font-weight: 700;
+      }
+      .hero p {
+        font-size: 18px;
+        line-height: 1.55;
+        color: #5f5f5f;
+        max-width: 560px;
+        margin: 0 0 28px;
+      }
+      .buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      /* Адаптивный контейнер для PNG Логотипа */
+      .hero-logo-card {
+        width: 100%;
+        height: 450px;
+        background: transparent;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-logo-img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+      }
+
+      /* Accordions & Steps */
+      .step-item {
+        background: transparent;
+        border: none;
+        transition: border-color 0.3s ease;
+      }
+      .step-header {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        list-style: none;
+      }
+      .step-header::-webkit-details-marker {
+        display: none;
+      }
+      .step-title,
+      .stitle {
+        font-weight: 700;
+        font-size: clamp(16px, 2.2vw, 20px);
+        line-height: 1.3;
+        flex-grow: 1;
+      }
+      .step-arrow {
+        transition: color 0.3s ease, transform 0.3s ease;
+        display: inline-block;
+      }
+      .step-item[open] .step-arrow {
+        transform: rotate(90deg);
+      }
+      .step-item:hover .step-title,
+      .step-item:hover .step-arrow {
+        color: var(--brand-orange);
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        gap: 40px;
+        align-items: flex-end;
+        margin-bottom: 40px;
+      }
+      h2 {
+        font-size: clamp(34px, 4.5vw, 56px);
+        line-height: 0.98;
+        letter-spacing: -2px;
+        margin: 0;
+        max-width: 720px;
+        font-weight: 800;
+      }
+      .lead {
+        max-width: 480px;
+        color: #6b665f;
+        line-height: 1.55;
+        font-size: 17px;
+        margin: 0;
+      }
+      .darkbg .lead {
+        color: #b7b0a8;
+      }
+
+      details {
+        border: 1px solid #3b3a38;
+        border-radius: 14px;
+        margin-bottom: 12px;
+        background: #222120;
+        overflow: hidden;
+        transition: transform 0.25s, border-color 0.25s, background 0.25s;
+      }
+      details:hover {
+        border-color: var(--brand-orange);
+      }
+      details[open] {
+        background: #292826;
+        border-color: #55524e;
+      }
+      summary {
+        cursor: pointer;
+        list-style: none;
+        padding: 22px 26px;
+        display: grid;
+        grid-template-columns: 40px 1fr 30px;
+        align-items: center;
+        user-select: none;
+      }
+      summary::-webkit-details-marker {
+        display: none;
+      }
+      .num {
+        color: var(--brand-orange);
+        font-size: 15px;
+        font-weight: 600;
+        transform: translateY(1px);
+        width: 52px;
+      }
+      .desc {
+        padding: 0 26px 24px 78px;
+        color: #aaa;
+        line-height: 1.6;
+        max-width: 850px;
+        font-size: 15px;
+      }
+
+      /* Grids */
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+      }
+      .step {
+        background: #292826;
+        padding: 26px;
+        border-radius: 18px;
+        border: 0.5px solid #292826;
+        transition: transform 0.25s, border-color 0.25s;
+      }
+      .step:hover {
+        border: 0.5px solid var(--brand-orange);
+        transform: translateY(-1px);
+        background: #302927;
+      }
+      .step b {
+        font-size: 13px;
+        color: var(--brand-orange);
+      }
+      .step h3 {
+        font-size: 19px;
+        margin: 20px 0 8px;
+        color: #fff;
+        font-weight: 700;
+      }
+      .step p {
+        font-size: 14px;
+        color: #aaa;
+        line-height: 1.45;
+        margin: 0;
+      }
+
+      .grid3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+      }
+      .box {
+        background: #292826;
+        border-radius: 20px;
+        padding: 32px;
+      }
+      .box h3 {
+        font-size: 24px;
+        letter-spacing: -1px;
+        margin: 0 0 12px;
+        color: #fff;
+        font-weight: 700;
+      }
+      .box p {
+        color: #aaa;
+        line-height: 1.55;
+        margin: 0;
+      }
+
+      /* Shows Grid */
+      .shows-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 360px));
+        gap: 24px;
+        justify-content: start;
+      }
+      .show-card {
+        background: #fffdf9;
+        border: 1px solid #ddd7ce;
+        border-radius: 22px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        width: 100%;
+      }
+      .show-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+      }
+      .show-image {
+        height: 240px;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: flex-end;
+        padding: 22px;
+        color: #fff;
+        position: relative;
+      }
+      .show-image:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(transparent 35%, rgba(0, 0, 0, 0.68));
+      }
+      .show-image strong {
+        position: relative;
+        z-index: 1;
+        font-size: 36px;
+        letter-spacing: -1px;
+        line-height: 0.9;
+        font-family: var(--font-heading);
+      }
+      .show-card-body {
+        padding: 24px;
+      }
+      .show-card-body h3 {
+        font-size: 22px;
+        line-height: 1.1;
+        letter-spacing: -1px;
+        margin: 0 0 8px;
+        color: #171717;
+        font-weight: 700;
+      }
+      .show-meta {
+        font-size: 13px;
+        color: #777;
+        margin-bottom: 16px;
+      }
+      .show-link {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--brand-orange);
+      }
+
+      /* Partners Grid */
+      .partners-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+        border-top: 1px solid #ddd7ce;
+        padding-top: 30px;
+      }
+      .partner-card {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        background: #fffdf9;
+        padding: 22px 24px;
+        border-radius: 18px;
+        border: 1px solid #ddd7ce;
+        cursor: pointer;
+        transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      }
+      .partner-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--brand-orange);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+      }
+      .partner-mark {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #191919;
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        font-size: 17px;
+        flex-shrink: 0;
+        font-family: var(--font-heading);
+      }
+      .partner-info h3 {
+        margin: 0 0 4px;
+        font-size: 20px;
+        color: #171717;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: 700;
+      }
+      .partner-info p {
+        margin: 0;
+        color: #6d675f;
+        font-size: 14px;
+      }
+      .partner-arrow {
+        font-size: 14px;
+        color: var(--brand-orange);
+        opacity: 0;
+        transition: opacity 0.2s;
+        margin-left: 8px;
+      }
+      .partner-card:hover .partner-arrow {
+        opacity: 1;
+      }
+
+      /* Modals */
+      .modal-bg {
+        display: none;
+        position: fixed;
+        z-index: 100;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        backdrop-filter: blur(4px);
+      }
+      .modal {
+        position: relative;
+        background: #fffdf9;
+        width: min(480px, 100%);
+        padding: 36px;
+        border-radius: 24px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      }
+      .close {
+        position: absolute;
+        right: 18px;
+        top: 18px;
+        border: 0;
+        background: rgba(0, 0, 0, 0.05);
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        font-size: 24px;
+        color: #555;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+      }
+
+      .show-modal {
+        width: min(920px, 100%);
+        max-height: 90vh;
+        overflow: auto;
+        background: #fffdf9;
+        border-radius: 26px;
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      }
+      .carousel-box {
+        position: relative;
+        min-height: 420px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: background 0.3s ease;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      .lightbox-bg {
+        display: none;
+        position: fixed;
+        z-index: 300;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.92);
+        backdrop-filter: blur(8px);
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      .lightbox-bg img {
+        max-width: 94vw;
+        max-height: 85vh;
+        object-fit: contain;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      .lightbox-caption {
+        color: #fff;
+        margin-top: 14px;
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        color: #fff;
+        font-size: 36px;
+        cursor: pointer;
+        line-height: 1;
+      }
+      .carousel-box:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.75));
+      }
+      .carousel-top-bar {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .carousel-counter {
+        background: rgba(0, 0, 0, 0.55);
+        color: #fff;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+        backdrop-filter: blur(4px);
+      }
+      .carousel-nav-btn {
+        position: relative;
+        z-index: 2;
+        background: rgba(0, 0, 0, 0.45);
+        color: #fff;
+        border: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        backdrop-filter: blur(4px);
+      }
+      .carousel-bottom {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .carousel-caption {
+        color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .carousel-thumbs {
+        display: flex;
+        gap: 8px;
+      }
+      .thumb {
+        width: 54px;
+        height: 38px;
+        border-radius: 8px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        cursor: pointer;
+        background-size: cover;
+        background-position: center;
+        opacity: 0.6;
+        transition: all 0.2s;
+      }
+      .thumb.active,
+      .thumb:hover {
+        opacity: 1;
+        border-color: var(--brand-orange);
+        transform: scale(1.05);
+      }
+      .show-modal-content {
+        padding: 36px;
+      }
+
+      .final {
+        background: #e8e0d5;
+      }
+      .contact-card {
+        background: #fffdf9;
+        border: 1px solid #ddd7ce;
+        border-radius: 24px;
+        padding: 36px;
+        max-width: 800px;
+        margin-top: 32px;
+      }
+
+      /* Адаптивные правила для экранов до 900px */
+      @media (max-width: 900px) {
+        #sketch-container {
+          display: none;
+        }
+        section {
+          padding: 30px 0 50px 0;
+        }
+        .hero-section {
+          padding: 0 0 50px 0;
+          min-height: auto;
+        }
+        .nav {
+          display: none;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+          display: flex;
+          flex-direction: column-reverse;
+          gap: 16px;
+          padding: 10px 0 20px;
+        }
+
+        /* Адаптивная подгонка логотипа на мобильных */
+        .hero-logo-card {
+          height: auto;
+          max-height: 240px;
+          aspect-ratio: 16 / 10;
+        }
+
+        .top {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+          margin-bottom: 30px;
+        }
+        .shows-grid,
+        .show-modal {
+          grid-template-columns: 1fr;
+        }
+        .carousel-box {
+          min-height: 260px;
+        }
+        .show-modal-content {
+          padding: 24px;
+        }
+        summary {
+          grid-template-columns: 26px 1fr 20px;
+          padding: 16px 18px;
+          gap: 12px;
+        }
+        .num {
+          transform: none;
+          align-self: flex-start;
+          margin-top: 1.5px;
+          flex-shrink: 0;
+          width: 40px;
+        }
+        .desc {
+          padding: 0 18px 18px 58px;
+        }
+        .steps {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+
+        .step {
+          display: grid;
+          grid-template-columns: 40px 1fr; /* 40px под номер, остальное под заголовок */
+          column-gap: 12px;
+          row-gap: 6px;
+          padding: 18px;
+          align-items: center;
+        }
+
+        .step .num {
+          grid-column: 1;
+          grid-row: 1;
+          width: auto;
+          margin: 0;
+          align-self: center;
+        }
+
+        .step h3 {
+          grid-column: 2;
+          grid-row: 1;
+          margin: 0;
+          font-size: 18px;
+          align-self: center;
+        }
+
+        .step p {
+          grid-column: 2; /* Выравниваем текст под заголовком */
+          margin: 0;
+        }
+      }
+      @media (max-width: 600px) {
+        header .btn {
+          padding: 10px 14px;
+          font-size: 12px; /* Уменьшаем кнопку для промежуточных экранов */
+        }
+      }
+
+      @media (max-width: 400px) {
+        header .btn {
+          display: none; /* Прячем кнопку на самых узких экранах, оставляем только логотип */
+        }
+        .logo {
+          font-size: 18px; /* Слегка адаптируем размер логотипа */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="sketch-container"></div>
+
+    <header>
+      <div class="wrap">
+        <nav>
+          <div class="logo">ДИАЛОГ <span class="logo-badge">Театр</span></div>
+          <div class="nav">
+            <a href="#value">Ценность</a>
+            <a href="#shows">Спектакли</a>
+            <a href="#format">Формат и показ</a>
+            <a href="#partners">Партнёры</a>
+            <a href="#contact">Контакты</a>
+          </div>
+          <button class="btn dark" onclick="openModal()">
+            Обсудить спектакль
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- 1. HERO -->
+      <section class="hero-section">
+        <div class="wrap hero">
+          <div>
+            <div class="eyebrow">
+              Ижевск · театрально-образовательный проект
+            </div>
+            <h1>ДИАЛОГ</h1>
+            <h2>Театр, который говорит о важном</h2>
+            <p>
+              Помогаем школам решать задачи воспитательной работы через
+              искусство и привозим профессиональные театральные постановки прямо
+              в актовый зал.
+            </p>
+            <div class="buttons">
+              <a class="btn red" href="#shows">Посмотреть спектакли</a>
+              <button class="btn ghost" onclick="openModal()">Для школы</button>
+            </div>
+          </div>
+
+          <!-- Адаптивный блок с PNG Логотипом -->
+          <div class="hero-logo-card">
+            <img src="logo.png" alt="Логотип «Диалог»" class="hero-logo-img" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. VALUE -->
+      <section class="darkbg" id="value">
+        <div class="wrap">
+          <div class="top">
+            <h2>Что получает школа?</h2>
+            <p class="lead">
+              Не просто культурное мероприятие, а готовый инструмент для
+              воспитательной работы.
+            </p>
+          </div>
+
+          <details class="step-item" open>
+            <summary class="step-header">
+              <span class="num">01</span>
+              <span class="step-title"
+                >Готовый инструмент воспитательной работы</span
+              >
+              <span class="step-arrow">❯</span>
+            </summary>
+            <div class="desc">
+              Школа получает формат, который дает понятный воспитательный
+              эффект: вовлеченность детей, возможность обсуждения, рефлексию и
+              материал для отчетности по воспитательной работе.
+            </div>
+          </details>
+
+          <details class="step-item">
+            <summary class="step-header">
+              <span class="num">02</span>
+              <span class="step-title">Соответствие задачам воспитания</span>
+              <span class="step-arrow">❯</span>
+            </summary>
+            <div class="desc">
+              Постановки подбираются с учётом актуальных направлений
+              воспитательной работы и значимых для школьников тем.
+            </div>
+          </details>
+
+          <details class="step-item">
+            <summary class="step-header">
+              <span class="num">03</span>
+              <span class="step-title">Эмоционально вовлекающий формат</span>
+              <span class="step-arrow">❯</span>
+            </summary>
+            <div class="desc">
+              Дети воспринимают тему через искусство, а не через лекцию. Это
+              повышает вовлеченность, снижает сопротивление и делает разговор о
+              сложном более естественным.
+            </div>
+          </details>
+
+          <details class="step-item">
+            <summary class="step-header">
+              <span class="num">04</span>
+              <span class="step-title">Повод для рефлексии и диалога</span>
+              <span class="step-arrow">❯</span>
+            </summary>
+            <div class="desc">
+              Спектакль становится точкой входа для педагогического разговора:
+              после показа можно провести обсуждение, классный час, эссе,
+              дискуссию.
+            </div>
+          </details>
+
+          <details class="step-item">
+            <summary class="step-header">
+              <span class="num">05</span>
+              <span class="step-title">Поддержка имиджа школы</span>
+              <span class="step-arrow">❯</span>
+            </summary>
+            <div class="desc">
+              Школа демонстрирует современный подход к воспитанию: через
+              культуру, искусство и диалог.
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 3. SHOWS -->
+      <section id="shows">
+        <div class="wrap">
+          <div class="top">
+            <h2>Какие спектакли показываем?</h2>
+            <p class="lead">
+              Постановки, которые помогают говорить с детьми о важных темах
+              через живое искусство.
+            </p>
+          </div>
+          <div id="showsGrid" class="shows-grid"></div>
+        </div>
+      </section>
+
+      <!-- 4. FORMAT -->
+      <section class="darkbg" id="format">
+        <div class="wrap">
+          <div class="top">
+            <h2>Формат работы и порядок показа</h2>
+            <p class="lead">
+              Спектакль проходит прямо в школе — в знакомом для детей
+              пространстве. Школа предоставляет актовый зал, а всё остальное
+              организуем мы.
+            </p>
+          </div>
+
+          <div class="grid3" style="margin-bottom: 54px">
+            <div class="box">
+              <h3>От 100 зрителей</h3>
+              <p>
+                Минимальная заявка — 100 человек. Показ удобно организовать
+                сразу для нескольких параллелей или классов.
+              </p>
+            </div>
+            <div class="box">
+              <h3>300–500 мест</h3>
+              <p>
+                Актовый зал школы становится настоящей театральной площадкой. Не
+                нужно организовывать трансфер детей.
+              </p>
+            </div>
+            <div class="box">
+              <h3>Всё остальное — мы</h3>
+              <p>
+                Школа предоставляет площадку, а мы берём на себя актёров, свет,
+                звук, декорации и проведение показа.
+              </p>
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid #3b3a38; padding-top: 40px">
+            <h3
+              style="
+                font-size: 26px;
+                color: #fff;
+                margin: 0 0 24px;
+                letter-spacing: -0.5px;
+              "
+            >
+              Как проходит показ?
+            </h3>
+            <div class="steps">
+              <div class="step">
+                <span class="num">01</span>
+                <h3>Выбираем</h3>
+                <p>Подбираем постановку по возрасту и теме.</p>
+              </div>
+              <div class="step">
+                <span class="num">02</span>
+                <h3>Согласуем</h3>
+                <p>Определяем дату и количество зрителей.</p>
+              </div>
+              <div class="step">
+                <span class="num">03</span>
+                <h3>Приезжаем</h3>
+                <p>Привозим актёров, звук и декорации.</p>
+              </div>
+              <div class="step">
+                <span class="num">04</span>
+                <h3>Проводим</h3>
+                <p>Профессиональный спектакль прямо в школе.</p>
+              </div>
+              <div class="step">
+                <span class="num">05</span>
+                <h3>Обсуждаем</h3>
+                <p>Постановка становится поводом для диалога.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. PARTNERS -->
+      <section id="partners">
+        <div class="wrap">
+          <div class="top">
+            <h2>Наши театры-партнёры</h2>
+            <p class="lead">
+              Профессиональные театры и коллективы. Нажмите на театр, чтобы
+              узнать детали.
+            </p>
+          </div>
+          <div id="partnersGrid" class="partners-grid"></div>
+        </div>
+      </section>
+
+      <!-- 6. CONTACTS -->
+      <section class="final" id="contact">
+        <div class="wrap">
+          <div class="top" style="margin-bottom: 24px">
+            <div>
+              <div class="eyebrow">Контакты · Ижевск</div>
+              <h2>Обсудим спектакль в вашей школе?</h2>
+            </div>
+          </div>
+          <p
+            class="lead"
+            style="
+              max-width: 720px;
+              font-size: 18px;
+              margin-bottom: 32px;
+              color: #524e48;
+            "
+          >
+            Свяжитесь с нами удобным способом — обсудим постановку, дату и
+            удобный формат проведения.
+          </p>
+          <div class="buttons">
+            <button class="btn red" onclick="openModal()">
+              Обсудить спектакль в вашей школе
+            </button>
+            <a class="btn ghost" href="https://vk.com" target="_blank"
+              >ВКонтакте</a
+            >
+            <a class="btn ghost" href="https://t.me" target="_blank"
+              >Telegram</a
+            >
+          </div>
+
+          <div class="contact-card">
+            <h3
+              style="
+                margin: 0 0 12px;
+                font-size: 32px;
+                letter-spacing: -1px;
+                color: #171717;
+              "
+            >
+              Давайте начнём диалог
+            </h3>
+            <p
+              style="
+                color: #625d56;
+                font-size: 16px;
+                margin: 0 0 28px;
+                line-height: 1.5;
+              "
+            >
+              Театр может стать не просто мероприятием, а поводом поговорить с
+              детьми о том, что действительно важно. Оставьте заявку или
+              напишите нам в соцсетях.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- MODAL: SHOW DETAILS -->
+    <div class="modal-bg" id="showModal" onclick="closeShowOnBackdrop(event)">
+      <div class="show-modal">
+        <button class="close" onclick="closeShow()">×</button>
+        <div class="carousel-box" id="modalCarouselBox">
+          <div class="carousel-top-bar">
+            <span class="carousel-counter" id="modalCarouselCounter"
+              >1 / 1</span
+            >
+            <div style="display: flex; gap: 8px">
+              <button
+                class="carousel-nav-btn"
+                onclick="openLightbox(event)"
+                title="Увеличить фото"
+              >
+                🔍
+              </button>
+              <button class="carousel-nav-btn" onclick="prevSlide(event)">
+                ❮
+              </button>
+              <button class="carousel-nav-btn" onclick="nextSlide(event)">
+                ❯
+              </button>
+            </div>
+          </div>
+          <div class="carousel-bottom">
+            <div class="carousel-caption" id="modalCarouselCaption">
+              Сцена из спектакля
+            </div>
+            <div class="carousel-thumbs" id="modalCarouselThumbs"></div>
+          </div>
+        </div>
+
+        <div class="show-modal-content">
+          <div
+            style="
+              font-size: 12px;
+              text-transform: uppercase;
+              letter-spacing: 1.5px;
+              color: var(--brand-orange);
+              font-weight: 700;
+            "
+            id="modalShowTag"
+          ></div>
+          <h3
+            id="modalShowTitle"
+            style="
+              font-size: 34px;
+              margin: 10px 0 14px;
+              letter-spacing: -1px;
+              color: #171717;
+            "
+          ></h3>
+          <p
+            id="modalShowDescription"
+            style="color: #666; line-height: 1.6; font-size: 15px; margin: 0"
+          ></p>
+
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 14px;
+              border-top: 1px solid #ddd7ce;
+              border-bottom: 1px solid #ddd7ce;
+              padding: 16px 0;
+              margin: 20px 0;
+              font-size: 14px;
+            "
+          >
+            <div>
+              <small
+                style="
+                  display: block;
+                  color: #999;
+                  font-size: 11px;
+                  text-transform: uppercase;
+                "
+                >Возраст</small
+              >
+              <span id="modalShowAge" style="font-weight: 600"></span>
+            </div>
+            <div>
+              <small
+                style="
+                  display: block;
+                  color: #999;
+                  font-size: 11px;
+                  text-transform: uppercase;
+                "
+                >Длительность</small
+              >
+              <span id="modalShowDuration" style="font-weight: 600"></span>
+            </div>
+            <div>
+              <small
+                style="
+                  display: block;
+                  color: #999;
+                  font-size: 11px;
+                  text-transform: uppercase;
+                "
+                >Театр</small
+              >
+              <span id="modalShowTheater" style="font-weight: 600"></span>
+            </div>
+            <div>
+              <small
+                style="
+                  display: block;
+                  color: #999;
+                  font-size: 11px;
+                  text-transform: uppercase;
+                "
+                >Формат</small
+              >
+              <span style="font-weight: 600">Выезд в школу</span>
+            </div>
+          </div>
+
+          <div
+            id="modalShowPrice"
+            style="font-size: 24px; font-weight: 800; color: #171717"
+          ></div>
+          <div
+            id="modalShowMinimum"
+            style="font-size: 13px; color: #777; margin-top: 2px"
+          ></div>
+          <button
+            class="btn red"
+            style="margin-top: 20px; width: 100%"
+            onclick="closeShow();openModal()"
+          >
+            Заказать спектакль
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: PARTNER DETAILS -->
+    <div
+      class="modal-bg"
+      id="partnerModal"
+      onclick="closePartnerOnBackdrop(event)"
+    >
+      <div class="modal">
+        <button class="close" onclick="closePartner()">×</button>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            border-bottom: 1px solid #eee7dd;
+            padding-bottom: 18px;
+            margin-bottom: 18px;
+          "
+        >
+          <div
+            class="partner-mark"
+            style="
+              width: 64px;
+              height: 64px;
+              font-size: 22px;
+              background: var(--brand-orange);
+              color: #fff;
+            "
+            id="modalPartnerMark"
+          ></div>
+          <div>
+            <h3
+              id="modalPartnerName"
+              style="
+                margin: 0;
+                font-size: 24px;
+                letter-spacing: -0.5px;
+                color: #171717;
+              "
+            ></h3>
+            <p
+              id="modalPartnerMeta"
+              style="margin: 4px 0 0; color: #777; font-size: 14px"
+            ></p>
+          </div>
+        </div>
+        <p
+          id="modalPartnerDesc"
+          style="color: #555; line-height: 1.6; font-size: 15px; margin: 0"
+        ></p>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            background: #f5f2ec;
+            padding: 16px;
+            border-radius: 14px;
+            margin: 20px 0;
+            text-align: center;
+          "
+          id="modalPartnerStats"
+        ></div>
+        <button
+          class="btn red"
+          style="width: 100%"
+          onclick="closePartner();openModal()"
+        >
+          Запросить выезд коллектива
+        </button>
+      </div>
+    </div>
+
+    <!-- MODAL: REQUEST FORM -->
+    <div class="modal-bg" id="modal" onclick="outside(event)">
+      <div class="modal">
+        <button class="close" onclick="closeModal()">×</button>
+        <h3 style="margin: 0 0 10px; font-size: 28px; color: #171717">
+          Обсудить спектакль
+        </h3>
+        <p style="color: #666; font-size: 14px; margin-bottom: 20px">
+          Оставьте заявку, и мы свяжемся с вами для согласования даты и деталей
+          выезда.
+        </p>
+        <label
+          style="
+            display: block;
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 4px;
+            font-weight: 600;
+          "
+          >Ваше имя</label
+        >
+        <input
+          placeholder="Имя и отчество"
+          style="
+            width: 100%;
+            padding: 12px 14px;
+            margin-bottom: 14px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 14px;
+          "
+        />
+        <label
+          style="
+            display: block;
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 4px;
+            font-weight: 600;
+          "
+          >Телефон</label
+        >
+        <input
+          placeholder="+7 (___) ___-__-__"
+          style="
+            width: 100%;
+            padding: 12px 14px;
+            margin-bottom: 14px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 14px;
+          "
+        />
+        <label
+          style="
+            display: block;
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 4px;
+            font-weight: 600;
+          "
+          >Школа / Город</label
+        >
+        <input
+          placeholder="№ школы или гимназии"
+          style="
+            width: 100%;
+            padding: 12px 14px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 14px;
+          "
+        />
+        <button class="btn red" style="width: 100%" onclick="closeModal()">
+          Отправить заявку
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      <div
+        class="wrap"
+        style="
+          padding: 28px 0;
+          color: #777;
+          display: flex;
+          justify-content: space-between;
+          font-size: 13px;
+        "
+      >
+        <strong>ДИАЛОГ</strong>
+        <span>Театрально-образовательный проект · Ижевск</span>
+      </div>
+    </footer>
+
+    <!-- ПОДКЛЮЧАЕМ ВНЕШНИЙ ФАЙЛ С ДАННЫМИ -->
+    <script src="data.js"></script>
+
+    <!-- ОСНОВНАЯ ЛОГИКА СТРАНИЦЫ -->
+    <script>
+      /* РЕНДЕР СПЕКТАКЛЕЙ */
+      const showsGrid = document.getElementById("showsGrid");
+      function renderShows() {
+        if (typeof shows === "undefined" || !shows.length) return;
+        showsGrid.innerHTML = shows
+          .map((s, i) => {
+            const firstPhoto = s.photos[0];
+            const bgStyle = firstPhoto.url
+              ? `background-image: url('${firstPhoto.url}');`
+              : `background: ${firstPhoto.bg};`;
+
+            return `
+              <article class="show-card" onclick="openShow(${i})">
+                <div class="show-image" style="${bgStyle}">
+                  <strong>${s.poster || s.title}</strong>
+                </div>
+                <div class="show-card-body">
+                  <h3>${s.title}</h3>
+                  <div class="show-meta">${s.age} · ${s.theater}</div>
+                  <div class="show-link">Подробнее и фото →</div>
+                </div>
+              </article>
+            `;
+          })
+          .join("");
+      }
+
+      /* РЕНДЕР ПАРТНЕРОВ */
+      const partnersGrid = document.getElementById("partnersGrid");
+      function renderPartners() {
+        if (typeof partners === "undefined" || !partners.length) return;
+        partnersGrid.innerHTML = partners
+          .map(
+            (p, i) => `
+              <div class="partner-card" onclick="openPartner(${i})">
+                <div class="partner-mark">${p.mark}</div>
+                <div class="partner-info" style="width:100%">
+                  <h3>${p.name} <span class="partner-arrow">→</span></h3>
+                  <p>${p.city} · ${p.role}</p>
+                </div>
+              </div>
+            `
+          )
+          .join("");
+      }
+
+      /* ЛОГИКА КАРУСЕЛИ И МОДАЛОК */
+      let currentShowIndex = 0;
+      let currentSlideIndex = 0;
+
+      function updateCarousel() {
+        const show = shows[currentShowIndex];
+        const photo = show.photos[currentSlideIndex];
+        const total = show.photos.length;
+
+        const box = document.getElementById("modalCarouselBox");
+        if (photo.url) {
+          box.style.backgroundImage = `url('${photo.url}')`;
+          box.style.backgroundColor = "transparent";
+        } else {
+          box.style.backgroundImage = "none";
+          box.style.backgroundColor = photo.bg;
+        }
+
+        document.getElementById("modalCarouselBox").onclick = (e) => {
+          // Открываем увеличенное фото, если кликнули не по кнопкам навигации
+          if (
+            !e.target.closest(".carousel-nav-btn") &&
+            !e.target.closest(".thumb")
+          ) {
+            openLightbox(e);
+          }
+        };
+
+        document.getElementById("modalCarouselCounter").textContent = `${
+          currentSlideIndex + 1
+        } / ${total}`;
+        document.getElementById("modalCarouselCaption").textContent =
+          photo.title;
+
+        const thumbs = document.getElementById("modalCarouselThumbs");
+        thumbs.innerHTML = show.photos
+          .map((p, i) => {
+            const thumbBg = p.url
+              ? `background-image: url('${p.url}')`
+              : `background: ${p.bg}`;
+            return `<div class="thumb ${
+              i === currentSlideIndex ? "active" : ""
+            }" style="${thumbBg}" onclick="setSlide(${i}, event)"></div>`;
+          })
+          .join("");
+      }
+
+      function nextSlide(e) {
+        e.stopPropagation();
+        currentSlideIndex =
+          (currentSlideIndex + 1) % shows[currentShowIndex].photos.length;
+        updateCarousel();
+      }
+      function prevSlide(e) {
+        e.stopPropagation();
+        currentSlideIndex =
+          (currentSlideIndex - 1 + shows[currentShowIndex].photos.length) %
+          shows[currentShowIndex].photos.length;
+        updateCarousel();
+      }
+      function setSlide(i, e) {
+        e.stopPropagation();
+        currentSlideIndex = i;
+        updateCarousel();
+      }
+
+      function openShow(i) {
+        currentShowIndex = i;
+        currentSlideIndex = 0;
+        const s = shows[i];
+
+        document.getElementById("modalShowTag").textContent = s.tag;
+        document.getElementById("modalShowTitle").textContent = s.title;
+        document.getElementById("modalShowDescription").textContent =
+          s.description;
+        document.getElementById("modalShowAge").textContent = s.age;
+        document.getElementById("modalShowDuration").textContent = s.duration;
+        document.getElementById("modalShowTheater").textContent = s.theater;
+        document.getElementById("modalShowPrice").textContent = s.price;
+        document.getElementById("modalShowMinimum").textContent = s.minimum;
+
+        updateCarousel();
+        document.getElementById("showModal").style.display = "flex";
+        document.body.style.overflow = "hidden";
+      }
+      function closeShow() {
+        document.getElementById("showModal").style.display = "none";
+        document.body.style.overflow = "";
+      }
+      function closeShowOnBackdrop(e) {
+        if (e.target.id === "showModal") closeShow();
+      }
+
+      function openPartner(i) {
+        const p = partners[i];
+        document.getElementById("modalPartnerMark").textContent = p.mark;
+        document.getElementById("modalPartnerName").textContent = p.name;
+        document.getElementById(
+          "modalPartnerMeta"
+        ).textContent = `${p.city} · ${p.role}`;
+        document.getElementById("modalPartnerDesc").textContent = p.description;
+
+        document.getElementById("modalPartnerStats").innerHTML = p.stats
+          .map(
+            (s) =>
+              `<div class="stat-item"><strong style="display:block;font-size:15px;color:#171717">${s.val}</strong><span style="font-size:12px;color:#777">${s.label}</span></div>`
+          )
+          .join("");
+
+        document.getElementById("partnerModal").style.display = "flex";
+        document.body.style.overflow = "hidden";
+      }
+      function closePartner() {
+        document.getElementById("partnerModal").style.display = "none";
+        document.body.style.overflow = "";
+      }
+      function closePartnerOnBackdrop(e) {
+        if (e.target.id === "partnerModal") closePartner();
+      }
+
+      function openModal() {
+        document.getElementById("modal").style.display = "flex";
+        document.body.style.overflow = "hidden";
+      }
+      function closeModal() {
+        document.getElementById("modal").style.display = "none";
+        document.body.style.overflow = "";
+      }
+      function outside(e) {
+        if (e.target.id === "modal") closeModal();
+      }
+
+      function openLightbox(e) {
+        if (e) e.stopPropagation();
+        const show = shows[currentShowIndex];
+        const photo = show.photos[currentSlideIndex];
+
+        const lb = document.getElementById("lightboxModal");
+        const lbImg = document.getElementById("lightboxImage");
+        const lbCap = document.getElementById("lightboxCaption");
+
+        if (photo.url) {
+          lbImg.src = photo.url;
+          lbImg.style.display = "block";
+        } else {
+          lbImg.style.display = "none";
+        }
+
+        lbCap.textContent = photo.title || "";
+        lb.style.display = "flex";
+      }
+
+      function closeLightbox(e) {
+        if (
+          !e ||
+          e.target.id === "lightboxModal" ||
+          e.target.classList.contains("lightbox-close")
+        ) {
+          document.getElementById("lightboxModal").style.display = "none";
+        }
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeShow();
+          closePartner();
+          closeModal();
+        }
+      });
+
+      renderShows();
+      renderPartners();
+    </script>
+    <!-- Полноэкранный просмотр фото -->
+    <div id="lightboxModal" class="lightbox-bg" onclick="closeLightbox(event)">
+      <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+      <img id="lightboxImage" src="" alt="Увеличенное фото" />
+      <div id="lightboxCaption" class="lightbox-caption"></div>
+    </div>
+  </body>
+</html>
