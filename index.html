@@ -77,7 +77,7 @@
 
       /* Nav */
       nav {
-        height: 78px;
+        height: 62px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -117,8 +117,8 @@
       /* Buttons */
       .btn {
         border: 0;
-        border-radius: 999px;
-        padding: 14px 24px;
+        border-radius: 12px;
+        padding: 12px 22px;
         font-weight: 700;
         cursor: pointer;
         transition: transform 0.15s, opacity 0.15s, box-shadow 0.15s;
@@ -131,8 +131,11 @@
         opacity: 0.92;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       }
+      header .btn {
+        padding: 8px 12px;
+      }
       .dark {
-        background: #191919;
+        background: #333;
         color: #fff;
       }
       .red {
@@ -156,34 +159,35 @@
 
       /* Hero Section & PNG Logo Wrapper */
       .hero-section {
-        min-height: calc(100vh - 78px);
+        min-height: calc(100vh - 178px);
         display: flex;
         align-items: center;
         padding: 40px 0;
       }
       .hero {
         display: grid;
-        grid-template-columns: 1fr 1.15fr; /* Колонке логотипа даем чуть больше ширины */
-        gap: 48px;
+        grid-template-columns: 1fr 1fr; /* Колонке логотипа даем чуть больше ширины */
+        gap: 0px;
         align-items: center;
+        padding: 0 20px 0 50px;
       }
       .eyebrow {
         text-transform: uppercase;
         letter-spacing: 0.13em;
-        font-size: 12px;
+        font-size: 11px;
         color: #8d8d8d;
         margin-bottom: 16px;
         font-weight: 600;
       }
       h1 {
-        font-size: clamp(52px, 7.5vw, 90px);
+        font-size: clamp(52px, 7.5vw, 88px);
         line-height: 0.88;
         letter-spacing: -1px;
         margin: 0;
         font-weight: 800;
       }
       .hero h2 {
-        font-size: clamp(24px, 3.2vw, 40px);
+        font-size: clamp(24px, 3.2vw, 35px);
         line-height: 1.08;
         letter-spacing: -1.5px;
         margin: 20px 0 16px;
@@ -191,7 +195,7 @@
         font-weight: 700;
       }
       .hero p {
-        font-size: 18px;
+        font-size: 17px;
         line-height: 1.55;
         color: #5f5f5f;
         max-width: 560px;
@@ -206,7 +210,7 @@
       /* Адаптивный контейнер для PNG Логотипа */
       .hero-logo-card {
         width: 100%;
-        height: 450px;
+        height: 410px;
         background: transparent;
         border: none;
         display: flex;
@@ -709,6 +713,9 @@
         .nav {
           display: none;
         }
+        .logo-badge {
+          font-size: 10px;
+        }
 
         .hero {
           grid-template-columns: 1fr;
@@ -717,7 +724,6 @@
           gap: 16px;
           padding: 10px 0 20px;
         }
-      
 
         /* Адаптивная подгонка логотипа на мобильных */
         .hero-logo-card {
@@ -791,11 +797,23 @@
           grid-column: 2; /* Выравниваем текст под заголовком */
           margin: 0;
         }
+        header .btn {
+          padding: 3px 9px;
+          font-size: 12px; /* Уменьшаем кнопку для промежуточных экранов */
+          border-radius: 6px;
+        }
+        nav {
+          gap: 16px;
+        }
       }
       @media (max-width: 600px) {
         header .btn {
-          padding: 10px 14px;
-          font-size: 12px; /* Уменьшаем кнопку для промежуточных экранов */
+          padding: 3px 9px;
+          font-size: 11px; /* Уменьшаем кнопку для промежуточных экранов */
+          border-radius: 6px;
+        }
+        nav {
+          gap: 16px;
         }
       }
 
@@ -815,7 +833,9 @@
     <header>
       <div class="wrap">
         <nav>
-          <div class="logo">ДИАЛОГ <span class="logo-badge">Театр</span></div>
+          <div class="logo">
+            <span class="logo-badge">Театрально - образовательный проект</span>
+          </div>
           <div class="nav">
             <a href="#value">Ценность</a>
             <a href="#shows">Спектакли</a>
@@ -847,7 +867,7 @@
             </p>
             <div class="buttons">
               <a class="btn red" href="#shows">Посмотреть спектакли</a>
-              <button class="btn ghost" onclick="openModal()">Для школы</button>
+              <button class="btn dark" onclick="openModal()">Для школы</button>
             </div>
           </div>
 
@@ -887,12 +907,15 @@
           <details class="step-item">
             <summary class="step-header">
               <span class="num">02</span>
-              <span class="step-title">Соответствие задачам воспитания</span>
+              <span class="step-title"
+                >Соответствие государственной повестке</span
+              >
               <span class="step-arrow">❯</span>
             </summary>
             <div class="desc">
               Постановки подбираются с учётом актуальных направлений
-              воспитательной работы и значимых для школьников тем.
+              воспитательной работы, которые обозначены государством и значимых
+              для школьников тем.
             </div>
           </details>
 
@@ -1094,8 +1117,8 @@
                 line-height: 1.5;
               "
             >
-              Театр может стать не просто мероприятием, а поводом поговорить с
-              детьми о том, что действительно важно. Оставьте заявку или
+              Спектакль может стать не просто мероприятием, а поводом поговорить
+              с детьми о том, что действительно важно. Оставьте заявку или
               напишите нам в соцсетях.
             </p>
           </div>
@@ -1471,6 +1494,8 @@
         const total = show.photos.length;
 
         const box = document.getElementById("modalCarouselBox");
+
+        // Установка фона
         if (photo.url) {
           box.style.backgroundImage = `url('${photo.url}')`;
           box.style.backgroundColor = "transparent";
@@ -1479,33 +1504,44 @@
           box.style.backgroundColor = photo.bg;
         }
 
-        document.getElementById("modalCarouselBox").onclick = (e) => {
-          // Открываем увеличенное фото, если кликнули не по кнопкам навигации
-          if (
-            !e.target.closest(".carousel-nav-btn") &&
-            !e.target.closest(".thumb")
-          ) {
-            openLightbox(e);
-          }
-        };
+        /* ИСКЛЮЧЕНИЕ ДЛЯ ПЕРВОГО ФОТО (ПОСТЕР): */
+        if (currentSlideIndex === 0) {
+          box.style.backgroundSize = "cover"; // Постер заполняет весь блок без полос
+          box.style.backgroundPosition = "center"; // Центрируем афишу
+        } else {
+          box.style.backgroundSize = "contain"; // Остальные фото показываем целиком
+          box.style.backgroundPosition = "center";
+        }
 
-        document.getElementById("modalCarouselCounter").textContent = `${
-          currentSlideIndex + 1
-        } / ${total}`;
+        /* Управление видимостью счётчика */
+        const counterEl = document.getElementById("modalCarouselCounter");
+        if (total > 1) {
+          counterEl.style.display = "inline-block";
+          counterEl.textContent = `${currentSlideIndex + 1} / ${total}`;
+        } else {
+          counterEl.style.display = "none";
+        }
+
         document.getElementById("modalCarouselCaption").textContent =
-          photo.title;
+          photo.title || "";
 
+        /* Миниатюры */
         const thumbs = document.getElementById("modalCarouselThumbs");
-        thumbs.innerHTML = show.photos
-          .map((p, i) => {
-            const thumbBg = p.url
-              ? `background-image: url('${p.url}')`
-              : `background: ${p.bg}`;
-            return `<div class="thumb ${
-              i === currentSlideIndex ? "active" : ""
-            }" style="${thumbBg}" onclick="setSlide(${i}, event)"></div>`;
-          })
-          .join("");
+        if (total > 1) {
+          thumbs.style.display = "flex";
+          thumbs.innerHTML = show.photos
+            .map((p, i) => {
+              const thumbBg = p.url
+                ? `background-image: url('${p.url}')`
+                : `background: ${p.bg}`;
+              return `<div class="thumb ${
+                i === currentSlideIndex ? "active" : ""
+              }" style="${thumbBg}" onclick="setSlide(${i}, event)"></div>`;
+            })
+            .join("");
+        } else {
+          thumbs.style.display = "none";
+        }
       }
 
       function nextSlide(e) {
