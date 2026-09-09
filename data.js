@@ -14,7 +14,7 @@ const shows = [
     photos: [
       {
         url: "pdd.jpg", // Замените на реальный URL/путь к фото (например: "images/pdd-1.jpg")
-        pos: "center 20%",
+        pos: "center 35%",
       },
     ],
   },
