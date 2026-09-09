@@ -390,8 +390,9 @@
       .shows-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(320px, 360px));
-        gap: 24px;
-        justify-content: start;
+        row-gap: 24px;
+        column-gap: 4px;
+        justify-content: space-around;
       }
       .show-card {
         background: #fffdf9;
@@ -401,37 +402,34 @@
         cursor: pointer;
         transition: transform 0.2s, box-shadow 0.2s;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
       }
       .show-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
       }
       .show-image {
-        height: 240px;
+        height: 220px;
         background-size: cover;
-        background-position: center;
-        display: flex;
-        align-items: flex-end;
-        padding: 22px;
-        color: #fff;
-        position: relative;
+        background-position: top center;
+        border-radius: 12px;
+        margin: 12px;
       }
-      .show-image:after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(transparent 35%, rgba(0, 0, 0, 0.68));
-      }
-      .show-image strong {
-        position: relative;
-        z-index: 1;
-        font-size: 36px;
-        letter-spacing: -1px;
-        line-height: 0.9;
+      .show-title {
+        font-size: 20px;
         font-family: var(--font-heading);
+        font-weight: bold;
+        line-height: 1.25;
+        margin: 0 0 8px 0;
+        color: #171717;
       }
       .show-card-body {
-        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 0px 20px 20px 20px;
       }
       .show-card-body h3 {
         font-size: 22px;
@@ -445,11 +443,73 @@
         font-size: 13px;
         color: #777;
         margin-bottom: 16px;
+        display: flex;
+        justify-content: space-between;
       }
       .show-link {
+        margin-top: auto;
+        align-self: stretch;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 12px;
+
         font-size: 14px;
-        font-weight: 700;
-        color: var(--brand-orange);
+        font-weight: 600;
+        color: #171717;
+        background-color: #f4efe8; /* Мягкий фоновый цвет кнопки */
+        border-radius: 10px;
+
+        transition: background-color 0.2s ease, color 0.2s ease,
+          transform 0.1s ease;
+        user-select: none;
+      }
+      .show-link:hover {
+        background-color: var(
+          --brand-orange,
+          #e05a47
+        ); /* Акцентный цвет при ховере */
+        color: #ffffff;
+      }
+      /* Панель фильтров */
+      .shows-filter-bar {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+      }
+
+      .filter-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+      }
+
+      .filter-group label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #555;
+      }
+
+      .filter-select {
+        padding: 10px 16px;
+        border-radius: 12px;
+        border: 1px solid #ddd7ce;
+        background: #fffdf9;
+        font-family: var(--font-body);
+        font-size: 14px;
+        color: #171717;
+        outline: none;
+        cursor: pointer;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        box-sizing: border-box;
+      }
+
+      .filter-select:hover,
+      .filter-select:focus {
+        border-color: var(--brand-orange);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       }
 
       /* Partners Grid */
@@ -616,7 +676,9 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.75));
+        pointer-events: none;
+        z-index: 1;
+        background: linear-gradient();
       }
       .carousel-top-bar {
         position: relative;
@@ -657,6 +719,8 @@
         color: #fff;
         font-size: 15px;
         font-weight: 600;
+        position: relative;
+        z-index: 2;
       }
       .carousel-thumbs {
         display: flex;
@@ -815,6 +879,9 @@
         nav {
           gap: 16px;
         }
+        header .btn {
+          display: none; /* Прячем кнопку на самых узких экранах, оставляем только логотип */
+        }
       }
 
       @media (max-width: 400px) {
@@ -968,6 +1035,30 @@
               Постановки, которые помогают говорить с детьми о важных темах
               через живое искусство.
             </p>
+          </div>
+
+          <!-- Фильтры -->
+          <div class="shows-filter-bar">
+            <div class="filter-group">
+              <label for="filterTheater">Театр:</label>
+              <select
+                id="filterTheater"
+                class="filter-select"
+                onchange="filterShows()"
+              >
+                <option value="all">Все театры</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filterGrade">Классы / Возраст:</label>
+              <select
+                id="filterGrade"
+                class="filter-select"
+                onchange="filterShows()"
+              >
+                <option value="all">Все классы</option>
+              </select>
+            </div>
           </div>
           <div id="showsGrid" class="shows-grid"></div>
         </div>
@@ -1130,19 +1221,20 @@
     <div class="modal-bg" id="showModal" onclick="closeShowOnBackdrop(event)">
       <div class="show-modal">
         <button class="close" onclick="closeShow()">×</button>
-        <div class="carousel-box" id="modalCarouselBox">
+        <div
+          class="carousel-box"
+          id="modalCarouselBox"
+          onclick="openLightbox()"
+        >
           <div class="carousel-top-bar">
             <span class="carousel-counter" id="modalCarouselCounter"
               >1 / 1</span
             >
-            <div style="display: flex; gap: 8px">
-              <button
-                class="carousel-nav-btn"
-                onclick="openLightbox(event)"
-                title="Увеличить фото"
-              >
-                🔍
-              </button>
+            <div
+              style="display: flex; gap: 8px"
+              id="carouselNav"
+              class="carousel-nav"
+            >
               <button class="carousel-nav-btn" onclick="prevSlide(event)">
                 ❮
               </button>
@@ -1438,32 +1530,89 @@
 
     <!-- ОСНОВНАЯ ЛОГИКА СТРАНИЦЫ -->
     <script>
-      /* РЕНДЕР СПЕКТАКЛЕЙ */
+      /* РЕНДЕР И ФИЛЬТРАЦИЯ СПЕКТАКЛЕЙ */
       const showsGrid = document.getElementById("showsGrid");
-      function renderShows() {
+
+      // 1. Динамическая инициализация списков фильтра
+      function initFilters() {
         if (typeof shows === "undefined" || !shows.length) return;
-        showsGrid.innerHTML = shows
-          .map((s, i) => {
+
+        const theaterSelect = document.getElementById("filterTheater");
+        const gradeSelect = document.getElementById("filterGrade");
+
+        // Уникальные театры
+        const theaters = [
+          ...new Set(shows.map((s) => s.theater).filter(Boolean)),
+        ];
+        theaters.forEach((t) => {
+          const opt = document.createElement("option");
+          opt.value = t;
+          opt.textContent = t;
+          theaterSelect.appendChild(opt);
+        });
+
+        // Уникальные классы/возраст
+        const grades = [
+          ...new Set(shows.map((s) => s.age || s.tag).filter(Boolean)),
+        ];
+        grades.forEach((g) => {
+          const opt = document.createElement("option");
+          opt.value = g;
+          opt.textContent = g;
+          gradeSelect.appendChild(opt);
+        });
+      }
+
+      // 2. Функция рендера карточек
+      function renderShows(list = shows) {
+        if (typeof shows === "undefined" || !shows.length) return;
+
+        if (!list.length) {
+          showsGrid.innerHTML = `<div style="grid-column: 1/-1; color: #777; padding: 20px 0;">По выбранным фильтрам спектаклей не найдено.</div>`;
+          return;
+        }
+
+        showsGrid.innerHTML = list
+          .map((s) => {
+            const originalIndex = shows.indexOf(s);
             const firstPhoto = s.photos[0];
-            const bgStyle = firstPhoto.url
-              ? `background-image: url('${firstPhoto.url}');`
-              : `background: ${firstPhoto.bg};`;
+            const bgPos = firstPhoto.pos || "top center";
+            const bgStyle = `background-image: url('${firstPhoto.url}'); background-position: ${bgPos};`;
 
             return `
-              <article class="show-card" onclick="openShow(${i})">
-                <div class="show-image" style="${bgStyle}">
-                  <strong>${s.poster || s.title}</strong>
-                </div>
-                <div class="show-card-body">
-                  <h3>${s.title}</h3>
-                  <div class="show-meta">${s.age} · ${s.theater}</div>
-                  <div class="show-link">Подробнее и фото →</div>
-                </div>
-              </article>
-            `;
+        <article class="show-card" onclick="openShow(${originalIndex})">
+          <div class="show-image" style="${bgStyle}"></div>
+          <div class="show-card-body">
+            <h3 class="show-title">${s.title}</h3>
+            <div class="show-meta"><div>${s.theater}</div><div>${s.age}</div></div>
+            <div class="show-link">Подробнее</div>
+          </div>
+        </article>
+      `;
           })
           .join("");
       }
+
+      // 3. Обработчик фильтрации
+      function filterShows() {
+        const selectedTheater = document.getElementById("filterTheater").value;
+        const selectedGrade = document.getElementById("filterGrade").value;
+
+        const filtered = shows.filter((s) => {
+          const matchTheater =
+            selectedTheater === "all" || s.theater === selectedTheater;
+          const matchGrade =
+            selectedGrade === "all" ||
+            s.age === selectedGrade ||
+            s.tag === selectedGrade;
+          return matchTheater && matchGrade;
+        });
+
+        renderShows(filtered);
+      }
+
+      // Инициализируем фильтры и рендер в самом конце скрипта:
+      initFilters();
 
       /* РЕНДЕР ПАРТНЕРОВ */
       const partnersGrid = document.getElementById("partnersGrid");
@@ -1504,28 +1653,36 @@
           box.style.backgroundColor = photo.bg;
         }
 
-        /* ИСКЛЮЧЕНИЕ ДЛЯ ПЕРВОГО ФОТО (ПОСТЕР): */
+        // Режим отображения: Постер (1-е фото) или обычная сцена
         if (currentSlideIndex === 0) {
-          box.style.backgroundSize = "cover"; // Постер заполняет весь блок без полос
-          box.style.backgroundPosition = "center"; // Центрируем афишу
+          box.style.backgroundSize = "cover";
+          box.style.backgroundPosition = "center";
         } else {
-          box.style.backgroundSize = "contain"; // Остальные фото показываем целиком
+          box.style.backgroundSize = "contain";
           box.style.backgroundPosition = "center";
         }
 
-        /* Управление видимостью счётчика */
+        /* --- Управление элементами навигации --- */
         const counterEl = document.getElementById("modalCarouselCounter");
+        const navEl = document.getElementById("carouselNav"); // Блок со стрелками влево/вправо
+
         if (total > 1) {
-          counterEl.style.display = "inline-block";
-          counterEl.textContent = `${currentSlideIndex + 1} / ${total}`;
+          // Если фото больше одного — показываем и счётчик, и стрелки
+          if (counterEl) {
+            counterEl.style.display = "inline-block";
+            counterEl.textContent = `${currentSlideIndex + 1} / ${total}`;
+          }
+          if (navEl) navEl.style.display = "flex";
         } else {
-          counterEl.style.display = "none";
+          // Если всего одно фото — скрываем всё
+          if (counterEl) counterEl.style.display = "none";
+          if (navEl) navEl.style.display = "none";
         }
 
         document.getElementById("modalCarouselCaption").textContent =
           photo.title || "";
 
-        /* Миниатюры */
+        /* --- Миниатюры --- */
         const thumbs = document.getElementById("modalCarouselThumbs");
         if (total > 1) {
           thumbs.style.display = "flex";
@@ -1661,6 +1818,7 @@
 
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
+          closeLightbox();
           closeShow();
           closePartner();
           closeModal();
