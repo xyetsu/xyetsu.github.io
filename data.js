@@ -4,7 +4,7 @@ const shows = [
     title: "ПДД — это жизнь",
     tag: "Спектакль",
     theater: "Театр «Молодой человек»",
-    age: "1–4 класс",
+    age: "1-4 класс",
     duration: "45 минут",
     price: "300 ₽",
     minimum: "Минимальная заявка — от 100 зрителей.",
@@ -22,7 +22,7 @@ const shows = [
     title: "Приключения жёлтого воздушного шарика",
     tag: "Спектакль",
     theater: "Театр «МО»",
-    age: "1–6 класс",
+    age: "1-6 класс",
     duration: "45 минут",
     price: "350 ₽",
     minimum: "Минимальная заявка — от 100 зрителей.",
@@ -33,6 +33,43 @@ const shows = [
       {
         url: "assets/sharik.jpg", // Замените на реальный URL/путь к фото (например: "images/pdd-1.jpg")
         pos: "center 20%",
+      },
+    ],
+  },
+  {
+    title: "Наш Рыжий",
+    tag: "Спектакль",
+    theater: "Театр «МО»",
+    age: "9-11 класс",
+    duration: "45 минут",
+    price: "350 ₽",
+    minimum: "Минимальная заявка — от 100 зрителей.",
+    description:
+      "",
+    photos: [
+      {
+        url: "assets/Nash/1.jpg", 
+        pos: "center 20%",
+      },
+      {
+        url: "assets/Nash/2.jpg", 
+        bg: "linear-gradient(145deg,#17201a,#667765 55%,#171a18)",
+      },
+            {
+        url: "assets/Nash/3.jpg", 
+        bg: "linear-gradient(145deg,#17201a,#667765 55%,#171a18)",
+      },
+            {
+        url: "assets/Nash/4.jpg", 
+        bg: "linear-gradient(145deg,#17201a,#667765 55%,#171a18)",
+      },
+            {
+        url: "assets/Nash/5.jpg", 
+        bg: "linear-gradient(145deg,#17201a,#667765 55%,#171a18)",
+      },
+            {
+        url: "assets/Nash/6.jpg", 
+        bg: "linear-gradient(145deg,#17201a,#667765 55%,#171a18)",
       },
     ],
   },
