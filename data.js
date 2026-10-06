@@ -73,6 +73,72 @@ const shows = [
       },
     ],
   },
+  {
+    title: "Подвиги маленьких сердец",
+    tag: "Спектакль",
+    theater: "Театр «МО»",
+    age: "1-9 класс",
+    duration: "45 минут",
+    price: "350 ₽",
+    minimum: "Минимальная заявка — от 100 зрителей.",
+    description:
+      "",
+    photos: [
+      {
+        url: "assets/Podvigi/1.jpg", 
+        pos: "center 20%",
+      },
+      {
+        url: "assets/Podvigi/2.jpg", 
+        bg: "linear-gradient(145deg,#17201a,#667765 55%,#171a18)",
+      },
+            {
+        url: "assets/Podvigi/3.jpg", 
+        bg: "linear-gradient(145deg,#17201a,#667765 55%,#171a18)",
+      },
+            {
+        url: "assets/Podvigi/4.jpg", 
+        bg: "linear-gradient(145deg,#17201a,#667765 55%,#171a18)",
+      },
+    ],
+  },
+    {
+    title: "Каренина",
+    tag: "Спектакль",
+    theater: "Театр «МО»",
+    age: "8-11 класс",
+    duration: "45 минут",
+    price: "350 ₽",
+    minimum: "Минимальная заявка — от 100 зрителей.",
+    description:
+      "",
+    photos: [
+      {
+        url: "assets/Karenina/1.jpg", 
+        pos: "center 20%",
+      },
+      {
+        url: "assets/Karenina/2.jpg", 
+        bg: "linear-gradient(145deg,#17201a,#667765 55%,#171a18)",
+      },
+            {
+        url: "assets/Karenina/3.jpg", 
+        bg: "linear-gradient(145deg,#17201a,#667765 55%,#171a18)",
+      },
+            {
+        url: "assets/Karenina/4.jpg", 
+        bg: "linear-gradient(145deg,#17201a,#667765 55%,#171a18)",
+      },
+            {
+        url: "assets/Karenina/5.jpg", 
+        bg: "linear-gradient(145deg,#17201a,#667765 55%,#171a18)",
+      },
+            {
+        url: "assets/Karenina/6.jpg", 
+        bg: "linear-gradient(145deg,#17201a,#667765 55%,#171a18)",
+      },
+    ],
+  },
 ];
 
 const partners = [
