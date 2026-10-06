@@ -10,7 +10,7 @@
       :root {
         --brand-orange: #c85d3b;
         --font-heading: "Manrope", sans-serif;
-        --font-body: "DM Sans", sans-serif;
+        --font-body: "Manrope", sans-serif;
       }
 
       * {
@@ -89,6 +89,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        padding-right: 10px;
       }
       .logo-badge {
         background: var(--brand-orange);
@@ -390,9 +391,9 @@
       /* Shows Grid */
       .shows-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 370px));
+        grid-template-columns: repeat(3, 1fr);
         row-gap: 24px;
-        column-gap: 4px;
+        column-gap: 12px;
         justify-content: space-around;
       }
       .show-card {
@@ -412,11 +413,11 @@
         box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
       }
       .show-image {
-        height: 230px;
+        height: 255px;
         background-size: cover;
         background-position: top center;
         border-radius: 12px;
-        margin: 12px;
+        margin: 10px;
       }
       .show-title {
         font-size: 20px;
