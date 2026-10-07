@@ -14,7 +14,7 @@ const shows = [
     photos: [
       {
         url: "assets/pdd.jpg", // Замените на реальный URL/путь к фото (например: "images/pdd-1.jpg")
-        pos: "center 35%",
+        pos: "center 32%",
       },
     ],
   },
@@ -32,7 +32,7 @@ const shows = [
     photos: [
       {
         url: "assets/sharik.jpg", // Замените на реальный URL/путь к фото (например: "images/pdd-1.jpg")
-        pos: "center 20%",
+        pos: "center 31%",
       },
     ],
   },
@@ -49,7 +49,7 @@ const shows = [
     photos: [
       {
         url: "assets/Nash/1.jpg", 
-        pos: "center 20%",
+        pos: "5%",
       },
       {
         url: "assets/Nash/2.jpg", 
@@ -86,7 +86,7 @@ const shows = [
     photos: [
       {
         url: "assets/Podvigi/1.jpg", 
-        pos: "center 20%",
+        pos: "15%",
       },
       {
         url: "assets/Podvigi/2.jpg", 
@@ -115,7 +115,7 @@ const shows = [
     photos: [
       {
         url: "assets/Karenina/1.jpg", 
-        pos: "center 20%",
+        pos: "5%",
       },
       {
         url: "assets/Karenina/2.jpg", 
